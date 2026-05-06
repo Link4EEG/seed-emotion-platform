@@ -53,8 +53,14 @@ export default function Intro() {
                 {pick(lang, I18N.common.cta.live)}
                 <ArrowRight size={16} />
               </Link>
-              <a href="https://github.com" className="link-underline text-sm tracking-tight text-muted-foreground"
-                 onClick={e => { e.preventDefault(); }}>
+              {/* 📄 개발 문서(docx) 다운로드 — client/public/docs/ 에 정적 파일로 배포됨.
+                  import.meta.env.BASE_URL 은 '/'(dev) 또는 '/seed-emotion-platform/'(GitHub Pages)으로 치환되어
+                  로컬·배포 환경 모두에서 정상 동작한다. */}
+              <a
+                href={`${import.meta.env.BASE_URL}docs/Development_Process_KR.docx`}
+                download="Development_Process_KR.docx"
+                className="link-underline text-sm tracking-tight text-muted-foreground"
+              >
                 {pick(lang, I18N.common.cta.docs)}
               </a>
             </div>
