@@ -1,0 +1,60 @@
+# 🚀 GitHub Pages 자동 배포 워크플로우
+# main 브랜치에 push 되면 vite로 정적 사이트를 빌드해서 GitHub Pages로 배포함.
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.4.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Build static site (with /seed-emotion-platform/ base)
+        run: pnpm run build:pages
+        env:
+          # 🌐 org pages는 https://link4eeg.github.io/<repo>/ 형태로 서빙되므로
+          # vite base를 repo 이름과 맞춰준다.
+          VITE_BASE_PATH: /seed-emotion-platform/
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/public
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
