@@ -6,7 +6,10 @@ import EmotionStream from "@/components/EmotionStream";
 import TrainingChart from "@/components/TrainingChart";
 import { useLang } from "@/contexts/LangContext";
 import { I18N, pick } from "@/lib/i18n";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Download } from "lucide-react";
+
+// 🔗 "다운로드" 버튼이 가리키는 SEED_Emotion_Analyzer 공개 저장소.
+const ANALYZER_REPO_URL = "https://github.com/Link4EEG/SEED_Emotion_Analyzer";
 
 const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/105236014/ammTayfCoGNfpp6hZJuRgx/hero_eeg_editorial-9Y6qvPDK32AAgcLsfeZBA5.webp";
 const PIPELINE_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/105236014/ammTayfCoGNfpp6hZJuRgx/architecture_pipeline-aVwUFJLarR2UJvBjSUCwa7.webp";
@@ -47,15 +50,32 @@ export default function Intro() {
               {pick(lang, t.hero.lede)}
             </p>
 
-            <div className="mt-10 flex flex-wrap items-center gap-5">
-              <Link href="/usage"
-                    className="inline-flex items-center gap-2 bg-foreground text-background px-5 py-3 text-sm tracking-tight">
-                {pick(lang, I18N.common.cta.live)}
-                <ArrowRight size={16} />
-              </Link>
-              {/* 📄 개발 문서(docx) 다운로드 — client/public/docs/ 에 정적 파일로 배포됨.
-                  import.meta.env.BASE_URL 은 '/'(dev) 또는 '/seed-emotion-platform/'(GitHub Pages)으로 치환되어
-                  로컬·배포 환경 모두에서 정상 동작한다. */}
+            {/* 🎯 CTA 영역
+                - 1행: [활용 가이드 보기] (filled primary)
+                - 2행: [다운로드] (outlined secondary, "활용 가이드 보기" 하단에 위치) → SEED_Emotion_Analyzer repo
+                - 3행: 개발 문서(docx) 인라인 링크
+                모든 라벨은 pick(lang, ...)을 사용하므로 KO/EN 토글에 즉시 반응한다. */}
+            <div className="mt-10 flex flex-col items-start gap-4">
+              <div className="flex flex-wrap items-center gap-3">
+                <Link href="/usage"
+                      className="inline-flex items-center gap-2 bg-foreground text-background px-5 py-3 text-sm tracking-tight">
+                  {pick(lang, I18N.common.cta.live)}
+                  <ArrowRight size={16} />
+                </Link>
+              </div>
+
+              <a href={ANALYZER_REPO_URL}
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 aria-label={pick(lang, I18N.common.cta.download)}
+                 className="inline-flex items-center gap-2 border border-foreground text-foreground px-5 py-3 text-sm tracking-tight hover:bg-foreground hover:text-background transition-colors">
+                <Download size={16} />
+                {pick(lang, I18N.common.cta.download)}
+              </a>
+
+              {/* 📄 개발 문서(docx) — client/public/docs/ 에 정적 파일로 배포.
+                  import.meta.env.BASE_URL 은 '/'(dev) 또는 '/seed-emotion-platform/'(GitHub Pages)으로
+                  치환되어 로컬·배포 환경 모두에서 정상 동작한다. */}
               <a
                 href={`${import.meta.env.BASE_URL}docs/Development_Process_KR.docx`}
                 download="Development_Process_KR.docx"

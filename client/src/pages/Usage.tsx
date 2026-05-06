@@ -68,8 +68,59 @@ export default function Usage() {
         </div>
       </section>
 
+      {/* ============================================================
+          🎬 VIDEO WALKTHROUGH — 01 환경 준비 직전에 노출되는 설치/실행 영상.
+          제목·설명은 i18n(t.video.*)으로 KO/EN 토글에 자동 반응한다.
+          유튜브 임베드는 lite 옵션(rel=0, modestbranding=1)으로 배너 노이즈를 줄인다.
+          ============================================================ */}
+      <section className="container pb-16 md:pb-24">
+        <div className="grid grid-cols-12 gap-8">
+          <div className="col-span-12 md:col-span-3">
+            <div className="section-num">{pick(lang, t.video.eyebrow)}</div>
+          </div>
+          <div className="col-span-12 md:col-span-9">
+            <h2 className="display text-3xl md:text-4xl leading-tight">
+              {pick(lang, t.video.title)}
+            </h2>
+            <p className="mt-4 max-w-[64ch] text-[15px] leading-[1.7] text-muted-foreground">
+              {pick(lang, t.video.caption)}
+            </p>
+
+            <div className="mt-8 border border-border bg-card overflow-hidden">
+              <div
+                className="relative w-full"
+                style={{ aspectRatio: "16 / 9" }}
+              >
+                <iframe
+                  src="https://www.youtube.com/embed/oR6daxHShoE?rel=0&modestbranding=1"
+                  title={pick(lang, t.video.title)}
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                  className="absolute inset-0 w-full h-full border-0"
+                />
+              </div>
+              <div className="px-4 py-2 border-t border-border flex items-center justify-between">
+                <span className="marginalia text-muted-foreground">YOUTUBE · oR6daxHShoE</span>
+                <a
+                  href="https://youtu.be/oR6daxHShoE"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="link-underline marginalia"
+                >
+                  youtu.be ↗
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <Hairline />
+
       {/* STEPS ---------------------------------------------------------- */}
-      <section className="container pb-24">
+      <section className="container pt-16 pb-24 md:pt-20">
         <div className="grid grid-cols-12 gap-10">
           {/* sticky stepper */}
           <aside className="hidden md:block col-span-3">

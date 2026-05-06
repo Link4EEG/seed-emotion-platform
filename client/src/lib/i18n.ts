@@ -25,9 +25,11 @@ const dict = {
       github:  { ko: "코드", en: "Code" },
     },
     cta: {
-      live:    { ko: "활용 가이드 보기", en: "Read the usage guide" },
-      docs:    { ko: "개발 문서 다운로드", en: "Download dev docs" },
-      back:    { ko: "← 소개로 돌아가기", en: "← Back to overview" },
+      live:     { ko: "활용 가이드 보기", en: "Read the usage guide" },
+      // 🆕 SEED_Emotion_Analyzer 저장소(릴리스/소스)로 연결되는 다운로드 CTA
+      download: { ko: "다운로드", en: "Download" },
+      docs:     { ko: "개발 문서 다운로드", en: "Download dev docs" },
+      back:     { ko: "← 소개로 돌아가기", en: "← Back to overview" },
     },
     footer: {
       caption: {
@@ -128,6 +130,15 @@ const dict = {
     lede: {
       ko: "아래 단계는 Mock 모드를 포함해 실제 하드웨어 없이도 그대로 따라할 수 있습니다. 실제 장비를 사용할 때는 각 단계 우측의 'Live' 메모를 참고하세요.",
       en: "The steps below work end-to-end in mock mode, without any hardware. When real headsets are attached, follow the 'Live' notes on the right of each step.",
+    },
+    // 🎬 STEPS 직전(01 환경 준비 위)에 임베드되는 설치/실행 영상.
+    video: {
+      eyebrow: { ko: "FIG. 06.00 — VIDEO WALKTHROUGH",       en: "FIG. 06.00 — VIDEO WALKTHROUGH" },
+      title:   { ko: "프로그램 설치 및 실행 방법",            en: "How to install & run the program" },
+      caption: {
+        ko: "전체 과정을 영상으로 먼저 훑어보고, 아래 6단계를 따라 진행하세요.",
+        en: "Watch the full walkthrough first, then follow the six steps below.",
+      },
     },
     steps: [
       {
